@@ -59,7 +59,7 @@ namespace MercatorWebshop.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,Naziv,Cijena,Kolicina,ProdavnicaID")] Artikl artikl)
         {
-            if (ModelState.IsValid)
+           // if (ModelState.IsValid)
             {
                 _context.Add(artikl);
                 await _context.SaveChangesAsync();

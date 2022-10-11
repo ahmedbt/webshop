@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using MercatorWebshop.Data;
 using MercatorWebshop.Models;
 using MercatorWebshop.NewFolder;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MercatorWebshop.Controllers
 {
@@ -25,6 +26,19 @@ namespace MercatorWebshop.Controllers
         {
               return View(await _context.Prodavnica.ToListAsync());
         }
+
+        // GET: Prodavnicas/ShowSearchForm
+        public async Task<IActionResult> ShowSearchForm()
+        {
+            return View();
+        }
+
+        // POST: Prodavnicas/ShowSearchResults
+        public async Task<IActionResult> ShowSearchResults(String SearchPhrase)
+        {
+            return View("Index",await _context.Prodavnica.Where(p=>p.Naziv.Contains(SearchPhrase)).ToListAsync());
+        }
+
 
         // GET: Prodavnicas/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -45,6 +59,7 @@ namespace MercatorWebshop.Controllers
         }
 
         // GET: Prodavnicas/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
